@@ -1,6 +1,6 @@
 "use client"
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react'
-import { shortenWalletAddress } from '@/app/helpers/walletHelper';
+import { shortenWalletAddress } from '@/app/utils/helpers/wallet.helper.util';
 import { redirect } from 'next/navigation';
 
 //icons
