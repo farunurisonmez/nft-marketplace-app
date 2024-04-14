@@ -6,7 +6,7 @@ import 'swiper/css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import NftCard from "../cards/nft.card"
+import NftCard from "../cards/collection.nft.card"
 
 const NftCardSwiper = () => {
     return (

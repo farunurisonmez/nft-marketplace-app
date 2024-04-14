@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getNFTImage, getNFTMetadata } from '@/app/utils/helpers/nft.helper.util';
 import { FaEthereum } from "react-icons/fa";
-
+import { Signer } from 'ethers';
+import Image from 'next/image'
 
 interface INftCard {
+    signer:Signer,
     imageUrl?:string
 }
 
-const NftCard = (props:INftCard) => {
+const CollectionNftCard = (props:INftCard) => {
+    const [imageURL, setImageURL] = useState<string>("")
+
+  useEffect(()=>{
+    getNFTMetadata({signer:props.signer, tokenId:2}).then((metadata)=>{
+        getNFTImage({ipfsImageHash:metadata.image}).then((image)=>{
+            setImageURL(image)
+        })
+    })
+  },[])
+  
+  useEffect(()=>{
+   
+  },[])
+
   return (
     <div className='rounded-2xl	bg-slate-800' style={{width:"255px"}}>
         <div className='relative rounded-lg mb-4 overflow-hidden card-media h-full'>
-                <img className='w-full h-64 object-cover' src={props.imageUrl} alt=""/>
+                <Image
+                    src={imageURL}
+                    alt='NFT Image'
+                    className='w-full h-64 object-cover'
+                    width={255}
+                    height={255}
+                />
             </div>
         <h5 className='mb-4 leading-5 font-bold pl-2 pr-2'>
             <a className='none'>
@@ -19,7 +42,7 @@ const NftCard = (props:INftCard) => {
         </h5>
         <div className='flex items-center pl-2 pr-2'>
             <div className='w-9 h-9 rounded-full overflow-hidden mr-4 flex-shrink-0'>
-                <img className='h-auto w-full align-middle' src='https://opne9reactnext.vercel.app/assets/images/avatar/avatar-box-01.jpg'/>
+                <img className='h-auto w-full align-middle' src={imageURL}/>
             </div>
             <div>
                 <span className='text-xs leading-1'>Posted by:</span>
@@ -42,4 +65,4 @@ const NftCard = (props:INftCard) => {
   );
 };
 
-export default NftCard;
+export default CollectionNftCard;

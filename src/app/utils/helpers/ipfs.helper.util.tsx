@@ -1,7 +1,7 @@
-import pinata from "../contants/pinata";
+import pinata from "../../contants/pinata";
 import axios from "axios";
-import api from "../apiConfig";
-import { env } from "../../../env";
+import api from "../../apiConfig";
+import { env } from "../../../../env";
 
 export const uploadJSON = async (json: Object) => {
     const url = api.ipfs.uploadjson;
@@ -62,9 +62,17 @@ export const pinHash =async (hash:string, name:string) => {
 }
 
 export const retrieveJSON = async (hash: string) => {
-    hash = hash.replace("ipfs://", "")
+    hash = hash.replace("test", "")
     const url = api.ipfs.retrievejson + hash
-    let response = await axios.post(url, {})
+    
+    let config = {
+        headers: { 
+          'Authorization': 'Basic ZDYxN2QyOTQwZGQ1NDkwYmI3NzQxY2QxNjFlYzA3NzI6eWgyTkp3Q0FBczF5aC9yR3hndlRDZHQxS0E4QlZ4WXRTZDdpZk11SFFyb1c0bmJIMVdTcUtB'
+        }
+    };
+
+    let response = await axios.post(url, {}, config)
+
     return response.data
 }
 
